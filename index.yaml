@@ -2,6 +2,25 @@ apiVersion: v1
 entries:
   wasp-thing-service:
   - apiVersion: v2
+    appVersion: 0.0.8
+    created: "2021-10-01T08:39:58.367821629Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ^10.3.9
+    description: A Helm chart for WASP Thing Service
+    digest: aa839f659068f22c5a0f11a82ded87ff883b63a7a9df0279dac3e4c820c6bce9
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: CDECatapult
+      url: www.digicatapult.org.uk
+    name: wasp-thing-service
+    type: application
+    urls:
+    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     appVersion: 0.0.7
     created: "2021-06-14T16:18:53.358348924Z"
     dependencies:
@@ -134,4 +153,4 @@ entries:
     urls:
     - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.1.tgz
     version: 0.0.1
-generated: "2021-06-14T16:18:53.352786071Z"
+generated: "2021-10-01T08:39:58.363376331Z"
