@@ -13,12 +13,12 @@ entries:
     digest: f3afd70c558617512c68c932009b2de228f459d9c3fc1e5b2093e233ca8eb7e9
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.10.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.10.tgz
     version: 0.0.10
   - apiVersion: v2
     appVersion: 0.0.9
@@ -32,12 +32,12 @@ entries:
     digest: f3947c131723d3591d3c75f97e642870e352b81c4d09cc6bdfb2558bf514ea03
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.9.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.9.tgz
     version: 0.0.9
   - apiVersion: v2
     appVersion: 0.0.8
@@ -51,12 +51,12 @@ entries:
     digest: aa839f659068f22c5a0f11a82ded87ff883b63a7a9df0279dac3e4c820c6bce9
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.8.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.8.tgz
     version: 0.0.8
   - apiVersion: v2
     appVersion: 0.0.7
@@ -70,12 +70,12 @@ entries:
     digest: 613297ee45723a92ec45e17090ec4c9f3e1f3eb4484859292bddcedc891f69a2
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.7.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.7.tgz
     version: 0.0.7
   - apiVersion: v2
     appVersion: 0.0.6
@@ -89,12 +89,12 @@ entries:
     digest: 16cc6c37fa306d1ec9f5021a94f2a48b634d8b0788786078285772cbe8857b37
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.6.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.6.tgz
     version: 0.0.6
   - apiVersion: v2
     appVersion: 0.0.5
@@ -108,12 +108,12 @@ entries:
     digest: e4a4a9b0f95cbb03337e76414b2207fad406b0e2ed2d57ff0999bc525f4e6744
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.5.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.5.tgz
     version: 0.0.5
   - apiVersion: v2
     appVersion: 0.0.4
@@ -127,12 +127,12 @@ entries:
     digest: df822df2ee356581f1fcdf900bd97c876e20b197c767247e18e2e9fcb0b78e0b
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.4.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.4.tgz
     version: 0.0.4
   - apiVersion: v2
     appVersion: 0.0.3
@@ -146,12 +146,12 @@ entries:
     digest: 3a1adb14415de6fe5efa862ee13cecd8ae4c188a9ea8fb0484adb6a7a7c3adfd
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.3.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v2
     appVersion: 0.0.2
@@ -165,12 +165,12 @@ entries:
     digest: 12e719b8ac5522e7346a3b28fdd6ceb795e3a5f99f47b67953b27ff429044acf
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.2.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
     appVersion: 0.0.1
@@ -184,11 +184,11 @@ entries:
     digest: 3e5aff15c58b6b4646bd8ca5cc60f31d29de5652db48fe953383385cb9a2cf97
     maintainers:
     - email: opensource@digicatapult.org.uk
-      name: CDECatapult
+      name: digicatapult
       url: www.digicatapult.org.uk
     name: wasp-thing-service
     type: application
     urls:
-    - https://CDECatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.1.tgz
+    - https://digicatapult.github.io/wasp-thing-service/wasp-thing-service-0.0.1.tgz
     version: 0.0.1
 generated: "2021-10-11T08:49:40.712669438Z"
