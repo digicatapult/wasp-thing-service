@@ -1,0 +1,21 @@
+postgresql:
+  enabled: true
+  postgresqlDatabase: wasp
+  postgresqlUsername: postgres
+  postgresqlPassword: postgres
+config:
+  waspThingServicePort: 3001
+  jwtSecret: test
+  dbName: wasp
+  dbPort: 5432
+  externalPostgresql: null
+image:
+  repository: ghcr.io/digicatapult/wasp-thing-service
+  pullPolicy: IfNotPresent
+  tag: 'v0.0.10'
+  pullSecrets: ['ghcr-digicatapult']
+ingress:
+  paths:
+    - /v1/ingest
+    - /v1/thing
+    - /v1/thingType

@@ -10,4 +10,6 @@ const setupServer = async (context) => {
   context.request = request(server.app)
 }
 
-module.exports = { setupServer }
+module.exports = {
+  setupServer,
+}

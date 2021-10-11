@@ -1,12 +1,21 @@
 const express = require('express')
 const pinoHttp = require('pino-http')
-const { PORT } = require('./env')
+const { initialize } = require('express-openapi')
+const v1ApiDoc = require('./api-v1/api-doc')
+const swaggerUi = require('swagger-ui-express')
+const bodyParser = require('body-parser')
+const { PORT, API_MAJOR_VERSION } = require('./env')
 const logger = require('./logger')
+const cors = require('cors')
+const path = require('path')
+const v1ThingService = require(`./api-${API_MAJOR_VERSION}/services/thingService`)
 
 async function createHttpServer() {
   const app = express()
   const requestLogger = pinoHttp({ logger })
 
+  // I'm putting this in even though it's not used initially
+  // just in case we add other routes. It's good boilerplate
   app.use((req, res, next) => {
     if (req.path !== '/health') requestLogger(req, res)
     next()
@@ -15,6 +24,31 @@ async function createHttpServer() {
   app.get('/health', async (req, res) => {
     res.status(200).send({ status: 'ok' })
   })
+
+  app.use(cors())
+  app.use(bodyParser.json())
+
+  initialize({
+    app,
+    apiDoc: v1ApiDoc,
+    dependencies: {
+      thingService: v1ThingService,
+    },
+    paths: [path.resolve(__dirname, `api-${API_MAJOR_VERSION}/routes`)],
+  })
+
+  const options = {
+    swaggerOptions: {
+      urls: [
+        {
+          url: `http://localhost:${PORT}/${API_MAJOR_VERSION}/api-docs`,
+          name: 'ThingService',
+        },
+      ],
+    },
+  }
+
+  app.use(`/${API_MAJOR_VERSION}/swagger`, swaggerUi.serve, swaggerUi.setup(null, options))
 
   // Sorry - app.use checks arity
   // eslint-disable-next-line no-unused-vars
@@ -32,46 +66,23 @@ async function createHttpServer() {
 
 /* istanbul ignore next */
 async function startServer() {
-  try {
-    const { app } = await createHttpServer()
+  const { app } = await createHttpServer()
 
-    const setupGracefulExit = ({ sigName, server, exitCode }) => {
-      process.on(sigName, async () => {
-        server.close(() => {
-          process.exit(exitCode)
-        })
-      })
-    }
-
-    const server = await new Promise((resolve, reject) => {
-      let resolved = false
-      const server = app.listen(PORT, (err) => {
-        if (err) {
-          if (!resolved) {
-            resolved = true
-            reject(err)
-          }
-        }
-        logger.info(`Listening on port ${PORT} `)
-        if (!resolved) {
-          resolved = true
-          resolve(server)
-        }
-      })
-      server.on('error', (err) => {
-        if (!resolved) {
-          resolved = true
-          reject(err)
-        }
+  const setupGracefulExit = ({ sigName, server, exitCode }) => {
+    process.on(sigName, async () => {
+      server.close(() => {
+        process.exit(exitCode)
       })
     })
-
-    setupGracefulExit({ sigName: 'SIGINT', server, exitCode: 0 })
-    setupGracefulExit({ sigName: 'SIGTERM', server, exitCode: 143 })
-  } catch (err) {
-    logger.fatal('Fatal error during initialisation: %j', err)
-    process.exit(1)
   }
+
+  const server = app.listen(PORT, (err) => {
+    if (err) throw new Error('Binding failed: ', err)
+    logger.info(`Listening on port ${PORT} `)
+  })
+
+  setupGracefulExit({ sigName: 'SIGINT', server, exitCode: 0 })
+  setupGracefulExit({ sigName: 'SIGTERM', server, exitCode: 143 })
 }
 
 module.exports = { startServer, createHttpServer }

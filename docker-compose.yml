@@ -1,0 +1,12 @@
+# docker-compose.yml
+version: "3"
+services:
+  wasp-thing-service-postgres-testing:
+    container_name: wasp-thing-service-postgres-testing
+    image: postgres:13.2-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=things

@@ -1,25 +1,86 @@
-# wasp-service-template
+# wasp-thing-service
 
-Template repository for bootstrapping new WASP services. Use this repo as a template in github when creating new `WASP` services. When forked a new pull request will automatically be created in the new repository to apply templating. Before merging you should also give access to the forked repo the `GITHUB_TOKEN` organisation secret prior to merging. This will allow the release workflow to run successfully on merging.
+Thing Service for WASP Project
 
-## What this repo provides
+## Getting started
 
-This repo provides:
+`wasp-thing-service` can be run in a similar way to most nodejs application. First install required dependencies using `npm`:
 
-- basic node.js project structure for a WASP service
-- linting with WASP prettier configuration
-- open-sourcing materials
-- Docker file
-- A simple helm chart for the service
-- A service with a healthcheck endpoint on `/health`
-- Testing apparatus using `mocha`, `chai` and `supertest`
-- Github workflows for testing and release
+```sh
+npm install
+```
+
+`wasp-thing-service` depends on a `postgresql` database dependency which can be brought locally up using docker:
+
+```sh
+docker-compose up -d
+```
+
+Finally the database must be initialised with:
+
+```sh
+npx knex migrate:latest
+```
+
+And finally you can run the application in development mode with:
+
+```sh
+npm run dev
+```
+
+Or run tests with:
+
+```sh
+npm test
+```
 
 ## Environment Variables
 
-`wasp-service-template` is configured primarily using environment variables as follows:
+`wasp-thing-service` is configured primarily using environment variables as follows:
 
-| variable  | required | default | description                                                                          |
-| :-------- | :------: | :-----: | :----------------------------------------------------------------------------------- |
-| LOG_LEVEL |    N     | `info`  | Logging level. Valid values are [`trace`, `debug`, `info`, `warn`, `error`, `fatal`] |
-| PORT      |    N     |  `80`   | Port on which the service will listen                                                |
+| variable          | required | default                | description                                                                          |
+| :---------------: | :------: | :--------------------: | :----------------------------------------------------------------------------------- |
+| LOG_LEVEL         |    N     |         `info`         | Logging level. Valid values are [`trace`, `debug`, `info`, `warn`, `error`, `fatal`] |
+| PORT              |    N     |         `3001`         | Port on which the service will listen                                                |
+| DB_HOST           |    Y     |            -           | PostgreSQL database hostname                                                         |
+| DB_PORT           |    N     |         `5432`         | PostgreSQL database port                                                             |
+| DB_NAME           |    N     |         `wasp`         | PostgreSQL database name                                                             |
+| DB_USERNAME       |    Y     |            -           | PostgreSQL database username                                                         |
+| DB_PASSWORD       |    Y     |            -           | PostgreSQL database password                                                         |
+| JWT_SECRET        |    Y     |            -           | Secret for validating JSON web-tokens                                                |
+| API_VERSION       |    N     | `package.json version` | Official API version                                                                 |
+| API_MAJOR_VERSION |    N     |          `v1`          | Major API version                                                                    |
+
+## Deploying WASP Thing Service on WASP-Cluster with Helm/Kubernetes
+
+### Install
+
+```
+brew install minikube helm
+```
+
+### WASP-Cluster
+
+Obtain the `wasp-cluster` from the repo: `https://github.com/digicatapult/wasp-cluster.git`, and follow the readme instructions.
+
+Eval is required to provide helm with visibility for your local docker image repository:
+
+```
+eval $(minikube docker-env)
+```
+
+Build the docker image:
+
+```
+docker build -t wasp-thing-service .
+```
+
+To run/deploy the application on kubernetes via helm charts use the following values.yaml with the corresponding overrides:
+
+```
+helm install wasp-thing-service helm/wasp-thing-service -f helm/wasp-thing-service/ci/ct-values.yaml
+```
+
+## Database structure
+
+The structure of the database backing `wasp-thing-service` can be found in [docs/db.md](./docs/db.md)

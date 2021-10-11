@@ -4,8 +4,8 @@ coverage
 .nyc_output
 .idea
 .env
-.vscode
 
 github_token
+.env
 helm/**/*.tgz
 jsHelper.js

@@ -90,6 +90,8 @@ jobs:
           context: .
           load: true
           file: ./Dockerfile
+          secrets: |
+            github=${{ secrets.GITHUB_TOKEN }}
           tags: |
             ${{ needs.preconditions.outputs.repo_name }}:latest
           labels: |
@@ -168,6 +170,8 @@ jobs:
         uses: kibertoad/wait-action@1.0.1
         with:
           time: "30s"
+      - name: Initialise DB
+        run: npx knex migrate:latest --env test
       - name: Run tests
         run: npm run test
   check-version:
@@ -227,6 +231,8 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64, linux/arm64
+          secrets: |
+            github=${{ secrets.GITHUB_TOKEN }}
           tags: |
             ghcr.io/${{ needs.preconditions.outputs.org_name }}/${{ needs.preconditions.outputs.repo_name }}:${{ needs.check-version.outputs.version }}
             ghcr.io/${{ needs.preconditions.outputs.org_name }}/${{ needs.preconditions.outputs.repo_name }}:latest

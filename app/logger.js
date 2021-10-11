@@ -3,7 +3,7 @@ const env = require('./env')
 
 const logger = pino(
   {
-    name: env.SERVICE_TYPE,
+    name: 'WASP_THING_SERVICE',
     level: env.LOG_LEVEL,
   },
   process.stdout

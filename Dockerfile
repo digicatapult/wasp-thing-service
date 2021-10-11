@@ -8,12 +8,12 @@ FROM node:14.16.0-alpine
 ARG LOGLEVEL
 ENV NPM_CONFIG_LOGLEVEL ${LOGLEVEL}
 
-WORKDIR /wasp-service-template
+WORKDIR /wasp-thing-service
 
 # Install base dependencies
 COPY . .
 RUN npm install --production
 
 
-EXPOSE 80
+EXPOSE 3001
 CMD ["node", "./app/index.js"]
