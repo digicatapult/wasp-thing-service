@@ -34,6 +34,11 @@ Or run tests with:
 npm test
 ```
 
+You can also generate seed data script via:
+```sh
+NODE_ENV=test npx knex seed:run
+```
+
 ## Environment Variables
 
 `wasp-thing-service` is configured primarily using environment variables as follows:
