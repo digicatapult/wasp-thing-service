@@ -1,8 +1,8 @@
 apiVersion: v2
 name: wasp-thing-service
-appVersion: '0.0.11'
+appVersion: '0.0.12'
 description: A Helm chart for WASP Thing Service
-version: '0.0.11'
+version: '0.0.12'
 type: application
 maintainers:
   - name: digicatapult
