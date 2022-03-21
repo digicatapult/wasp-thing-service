@@ -27,7 +27,7 @@ const seed = async () => {
   const thingThreeId = '8c2a3af9-c9cc-4f4c-98c1-81dbc9c4eff0'
   const thingType264 = 'h264'
   const ingestRtmp = 'ingest-rtmp'
-  const ingestRtmpId = 'app-name'
+  const ingestRtmpId = 'stream-test'
 
   // create thing types
   await client('types').insert([
