@@ -1,4 +1,4 @@
-module.exports = function (thingService) {
+export default function (thingService) {
   const doc = {
     GET: async function (req, res) {
       const { id: thingId, ingest } = req.params

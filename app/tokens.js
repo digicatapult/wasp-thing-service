@@ -1,5 +1,5 @@
-const jwt = require('jwt-simple')
-const env = require('./env')
+import jwt from 'jwt-simple'
+import env from './env.js'
 
 const jwtFormat = /^Bearer ([0-9a-zA-Z._-]+)$/
 
@@ -19,7 +19,4 @@ const isTokenValid = (tokenRaw) => {
   return decodeToken(tokenRaw) ? true : false
 }
 
-module.exports = {
-  decodeToken,
-  isTokenValid,
-}
+export { decodeToken, isTokenValid }

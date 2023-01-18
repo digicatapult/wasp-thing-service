@@ -1,8 +1,7 @@
-const { describe, before, it } = require('mocha')
-const { expect } = require('chai')
-const { setupServer } = require('./helpers/server')
-const { cleanup } = require('./seeds/things')
-const { API_MAJOR_VERSION } = require('../app/env')
+import { describe, before, it } from 'mocha'
+import { expect } from 'chai'
+import { setupServer } from './helpers/server.js'
+import { cleanup } from './seeds/things.js'
 
 describe('Thing Types', function () {
   describe('GET thing types', function () {
@@ -11,9 +10,9 @@ describe('Thing Types', function () {
       await setupServer(context)
 
       const type = { name: 'typeOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
+      await context.request.post(`/v1/thingType`).send(type)
 
-      context.response = await context.request.get(`/${API_MAJOR_VERSION}/thingType`)
+      context.response = await context.request.get(`/v1/thingType`)
     })
 
     after(async function () {
@@ -35,7 +34,7 @@ describe('Thing Types', function () {
       await setupServer(context)
 
       type = { name: 'typeOne' }
-      context.response = await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
+      context.response = await context.request.post(`/v1/thingType`).send(type)
     })
 
     after(async function () {
@@ -48,7 +47,7 @@ describe('Thing Types', function () {
     })
 
     it('should return 409', async function () {
-      context.response = await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
+      context.response = await context.request.post(`/v1/thingType`).send(type)
 
       expect(context.response.status).to.equal(409)
       expect(context.response.body).to.deep.equal({})
@@ -68,7 +67,7 @@ describe('Thing Types', function () {
     })
 
     it('should return 404', async function () {
-      context.response = await context.request.get(`/${API_MAJOR_VERSION}/thingType/thingTypeZero`)
+      context.response = await context.request.get(`/v1/thingType/thingTypeZero`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -76,7 +75,7 @@ describe('Thing Types', function () {
 
     it('should return 200', async function () {
       thingType = { name: 'typeOne' }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(thingType)
+      const { body } = await context.request.post(`/v1/thingType`).send(thingType)
 
       context.response = await context.request.get(`/v1/thingType/${body.name}`)
 
@@ -96,14 +95,14 @@ describe('Thing Types', function () {
     })
 
     it('should return 400 (invalid request body)', async function () {
-      context.response = await context.request.put(`/${API_MAJOR_VERSION}/thingType/thingTypeZero`).send({})
+      context.response = await context.request.put(`/v1/thingType/thingTypeZero`).send({})
 
       expect(context.response.status).to.equal(400)
       expect(context.response.body).to.deep.equal({})
     })
 
     it('should return 404', async function () {
-      context.response = await context.request.put(`/${API_MAJOR_VERSION}/thingType/thingTypeZero`)
+      context.response = await context.request.put(`/v1/thingType/thingTypeZero`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -111,14 +110,14 @@ describe('Thing Types', function () {
 
     it('should return 200', async function () {
       const typeOne = { name: 'typeOne' }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(typeOne)
+      const { body } = await context.request.post(`/v1/thingType`).send(typeOne)
 
       const typeTwo = { name: 'typeTwo' }
       const thingTwo = {
         name: typeTwo.name,
         metadata: { name: 'updatedThing' },
       }
-      context.response = await context.request.put(`/${API_MAJOR_VERSION}/thingType/${body.name}`).send(thingTwo)
+      context.response = await context.request.put(`/v1/thingType/${body.name}`).send(thingTwo)
 
       expect(context.response.status).to.equal(200)
       expect(context.response.body.name).to.equal('typeTwo')
@@ -136,7 +135,7 @@ describe('Thing Types', function () {
     })
 
     it('should return 404', async function () {
-      context.response = await context.request.delete(`/${API_MAJOR_VERSION}/thingType/typeZero`)
+      context.response = await context.request.delete(`/v1/thingType/typeZero`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -144,9 +143,9 @@ describe('Thing Types', function () {
 
     it('should return 204', async function () {
       const typeOne = { name: 'typeOne' }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(typeOne)
+      const { body } = await context.request.post(`/v1/thingType`).send(typeOne)
 
-      context.response = await context.request.delete(`/${API_MAJOR_VERSION}/thingType/${body.name}`)
+      context.response = await context.request.delete(`/v1/thingType/${body.name}`)
 
       expect(context.response.status).to.equal(204)
       expect(context.response.body).to.deep.equal({})

@@ -1,10 +1,12 @@
-const envalid = require('envalid')
-const dotenv = require('dotenv')
+import envalid from 'envalid'
+import dotenv from 'dotenv'
 
-const { version } = require('../package.json')
+import { version } from './version.js'
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: 'test/test.env' })
+} else {
+  dotenv.config()
 }
 
 const vars = envalid.cleanEnv(
@@ -19,11 +21,12 @@ const vars = envalid.cleanEnv(
     DB_PASSWORD: envalid.str({ devDefault: 'postgres' }),
     JWT_SECRET: envalid.str({ devDefault: 'ogA9ppB$S!dy!hu3Rauvg!L96' }),
     API_VERSION: envalid.str({ default: version }),
-    API_MAJOR_VERSION: envalid.str({ default: 'v1' }),
   },
   {
     strict: true,
   }
 )
 
-module.exports = vars
+export default {
+  ...vars,
+}

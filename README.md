@@ -35,6 +35,7 @@ npm test
 ```
 
 You can also generate seed data script via:
+
 ```sh
 NODE_ENV=test npx knex seed:run
 ```
@@ -43,18 +44,17 @@ NODE_ENV=test npx knex seed:run
 
 `wasp-thing-service` is configured primarily using environment variables as follows:
 
-| variable          | required | default                | description                                                                          |
-| :---------------: | :------: | :--------------------: | :----------------------------------------------------------------------------------- |
-| LOG_LEVEL         |    N     |         `info`         | Logging level. Valid values are [`trace`, `debug`, `info`, `warn`, `error`, `fatal`] |
-| PORT              |    N     |         `3001`         | Port on which the service will listen                                                |
-| DB_HOST           |    Y     |            -           | PostgreSQL database hostname                                                         |
-| DB_PORT           |    N     |         `5432`         | PostgreSQL database port                                                             |
-| DB_NAME           |    N     |         `wasp`         | PostgreSQL database name                                                             |
-| DB_USERNAME       |    Y     |            -           | PostgreSQL database username                                                         |
-| DB_PASSWORD       |    Y     |            -           | PostgreSQL database password                                                         |
-| JWT_SECRET        |    Y     |            -           | Secret for validating JSON web-tokens                                                |
-| API_VERSION       |    N     | `package.json version` | Official API version                                                                 |
-| API_MAJOR_VERSION |    N     |          `v1`          | Major API version                                                                    |
+|  variable   | required |        default         | description                                                                          |
+| :---------: | :------: | :--------------------: | :----------------------------------------------------------------------------------- |
+|  LOG_LEVEL  |    N     |         `info`         | Logging level. Valid values are [`trace`, `debug`, `info`, `warn`, `error`, `fatal`] |
+|    PORT     |    N     |         `3001`         | Port on which the service will listen                                                |
+|   DB_HOST   |    Y     |           -            | PostgreSQL database hostname                                                         |
+|   DB_PORT   |    N     |         `5432`         | PostgreSQL database port                                                             |
+|   DB_NAME   |    N     |         `wasp`         | PostgreSQL database name                                                             |
+| DB_USERNAME |    Y     |           -            | PostgreSQL database username                                                         |
+| DB_PASSWORD |    Y     |           -            | PostgreSQL database password                                                         |
+| JWT_SECRET  |    Y     |           -            | Secret for validating JSON web-tokens                                                |
+| API_VERSION |    N     | `package.json version` | Official API version                                                                 |
 
 ## Deploying WASP Thing Service on WASP-Cluster with Helm/Kubernetes
 

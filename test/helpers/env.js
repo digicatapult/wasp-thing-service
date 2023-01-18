@@ -1,4 +1,4 @@
-const envalid = require('envalid')
+import envalid from 'envalid'
 
 const options = {
   strict: true,
@@ -16,4 +16,4 @@ const vars = envalid.cleanEnv(
   options
 )
 
-module.exports = vars
+export default vars
