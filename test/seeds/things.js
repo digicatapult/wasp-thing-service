@@ -1,4 +1,4 @@
-const { client } = require('../../app/db')
+import { client } from '../../app/db.js'
 
 const cleanup = async () => {
   await client('ingest_things').del()
@@ -106,7 +106,4 @@ const seed = async () => {
     .returning('*')
 }
 
-module.exports = {
-  cleanup,
-  seed,
-}
+export { cleanup, seed }

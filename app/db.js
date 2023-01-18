@@ -1,5 +1,5 @@
-const knex = require('knex')
-const env = require('./env')
+import knex from 'knex'
+import env from './env.js'
 
 const client = knex({
   client: 'pg',
@@ -133,7 +133,7 @@ async function removeThingIngestByThingIdAndIngest({ thingId, ingest }) {
   await client('ingest_things').where({ thing_id: thingId, ingest }).del()
 }
 
-module.exports = {
+export {
   client,
   findThings,
   findThingById,

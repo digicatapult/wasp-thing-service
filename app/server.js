@@ -1,14 +1,20 @@
-const express = require('express')
-const pinoHttp = require('pino-http')
-const { initialize } = require('express-openapi')
-const v1ApiDoc = require('./api-v1/api-doc')
-const swaggerUi = require('swagger-ui-express')
-const bodyParser = require('body-parser')
-const { PORT, API_MAJOR_VERSION } = require('./env')
-const logger = require('./logger')
-const cors = require('cors')
-const path = require('path')
-const v1ThingService = require(`./api-${API_MAJOR_VERSION}/services/thingService`)
+import express from 'express'
+import pinoHttp from 'pino-http'
+import { initialize } from 'express-openapi'
+import swaggerUi from 'swagger-ui-express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+import v1ApiDoc from './api-v1/api-doc.js'
+import env from './env.js'
+import logger from './logger.js'
+import v1ThingService from './api-v1/services/thingService.js'
+
+const { PORT } = env
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 async function createHttpServer() {
   const app = express()
@@ -34,21 +40,21 @@ async function createHttpServer() {
     dependencies: {
       thingService: v1ThingService,
     },
-    paths: [path.resolve(__dirname, `api-${API_MAJOR_VERSION}/routes`)],
+    paths: [path.resolve(__dirname, `api-v1/routes`)],
   })
 
   const options = {
     swaggerOptions: {
       urls: [
         {
-          url: `http://localhost:${PORT}/${API_MAJOR_VERSION}/api-docs`,
+          url: `http://localhost:${PORT}/v1/api-docs`,
           name: 'ThingService',
         },
       ],
     },
   }
 
-  app.use(`/${API_MAJOR_VERSION}/swagger`, swaggerUi.serve, swaggerUi.setup(null, options))
+  app.use(`/v1/swagger`, swaggerUi.serve, swaggerUi.setup(null, options))
 
   // Sorry - app.use checks arity
   // eslint-disable-next-line no-unused-vars
@@ -85,4 +91,4 @@ async function startServer() {
   setupGracefulExit({ sigName: 'SIGTERM', server, exitCode: 143 })
 }
 
-module.exports = { startServer, createHttpServer }
+export { startServer, createHttpServer }

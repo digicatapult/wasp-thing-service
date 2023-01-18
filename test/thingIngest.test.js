@@ -1,8 +1,7 @@
-const { describe, before, it } = require('mocha')
-const { expect } = require('chai')
-const { setupServer } = require('./helpers/server')
-const { cleanup } = require('./seeds/things')
-const { API_MAJOR_VERSION } = require('../app/env')
+import { describe, before, it } from 'mocha'
+import { expect } from 'chai'
+import { setupServer } from './helpers/server.js'
+import { cleanup } from './seeds/things.js'
 
 describe('ThingIngests', function () {
   describe('GET thing ingests', function () {
@@ -16,18 +15,14 @@ describe('ThingIngests', function () {
     })
 
     it('should return 400 (invalid uuid)', async function () {
-      context.response = await context.request.get(
-        `/${API_MAJOR_VERSION}/thing/000a0000-a00a-00a0-a000-00000000000/ingest`
-      )
+      context.response = await context.request.get(`/v1/thing/000a0000-a00a-00a0-a000-00000000000/ingest`)
 
       expect(context.response.status).to.equal(400)
       expect(context.response.body).to.deep.equal([])
     })
 
     it('should return 404 (thing does not exist)', async function () {
-      context.response = await context.request.get(
-        `/${API_MAJOR_VERSION}/thing/000a0000-a00a-00a0-a000-000000000000/ingest`
-      )
+      context.response = await context.request.get(`/v1/thing/000a0000-a00a-00a0-a000-000000000000/ingest`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal([])
@@ -35,15 +30,15 @@ describe('ThingIngests', function () {
 
     it('should return 200', async function () {
       const type = { name: 'typeOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
+      await context.request.post(`/v1/thingType`).send(type)
       const ingest = { name: 'ingestOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingest)
+      await context.request.post(`/v1/ingest`).send(ingest)
 
       const thing = {
         type: type.name,
         metadata: {},
       }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thing`).send(thing)
+      const { body } = await context.request.post(`/v1/thing`).send(thing)
 
       const thingIngest = {
         thingId: body.id,
@@ -52,9 +47,9 @@ describe('ThingIngests', function () {
         configuration: {},
       }
 
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${body.id}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${body.id}/ingest`).send(thingIngest)
 
-      context.response = await context.request.get(`/${API_MAJOR_VERSION}/thingType`)
+      context.response = await context.request.get(`/v1/thingType`)
 
       expect(context.response.status).to.equal(200)
       expect(context.response.body).to.have.length(1)
@@ -87,7 +82,7 @@ describe('ThingIngests', function () {
         ingestId: ingestId,
         configuration: {},
       }
-      context.response = await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      context.response = await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
       expect(context.response.status).to.equal(400)
       expect(context.response.body).to.deep.equal({})
@@ -101,7 +96,7 @@ describe('ThingIngests', function () {
         ingestId: ingestId,
         configuration: {},
       }
-      context.response = await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      context.response = await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -109,14 +104,14 @@ describe('ThingIngests', function () {
 
     it('should return 201', async function () {
       const type = { name: 'typeOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingest)
+      await context.request.post(`/v1/thingType`).send(type)
+      await context.request.post(`/v1/ingest`).send(ingest)
 
       const thing = {
         type: type.name,
         metadata: {},
       }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thing`).send(thing)
+      const { body } = await context.request.post(`/v1/thing`).send(thing)
       thingId = body.id
 
       const thingIngest = {
@@ -126,7 +121,7 @@ describe('ThingIngests', function () {
         configuration: {},
       }
 
-      context.response = await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      context.response = await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
       expect(context.response.status).to.equal(201)
       expect(context.response.body.ingestId).to.equal('ingestOneId')
@@ -139,7 +134,7 @@ describe('ThingIngests', function () {
         ingestId: ingestId,
         configuration: {},
       }
-      context.response = await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      context.response = await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
       expect(context.response.status).to.equal(409)
       expect(context.response.body).to.deep.equal({})
@@ -156,15 +151,15 @@ describe('ThingIngests', function () {
       await setupServer(context)
 
       const type = { name: 'typeOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
+      await context.request.post(`/v1/thingType`).send(type)
       ingest = { name: 'ingestOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingest)
+      await context.request.post(`/v1/ingest`).send(ingest)
 
       const thing = {
         type: type.name,
         metadata: {},
       }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thing`).send(thing)
+      const { body } = await context.request.post(`/v1/thing`).send(thing)
       thingId = body.id
 
       ingestId = 'ingestOneId'
@@ -182,11 +177,9 @@ describe('ThingIngests', function () {
         ingestId: ingestId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request.get(
-        `/${API_MAJOR_VERSION}/thing/${invalidThingId}/ingest/${ingest.name}`
-      )
+      context.response = await context.request.get(`/v1/thing/${invalidThingId}/ingest/${ingest.name}`)
 
       expect(context.response.status).to.equal(400)
       expect(context.response.body).to.deep.equal({})
@@ -200,11 +193,9 @@ describe('ThingIngests', function () {
         ingestId: ingestId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request.get(
-        `/${API_MAJOR_VERSION}/thing/${invalidThingId}/ingest/${ingest.name}`
-      )
+      context.response = await context.request.get(`/v1/thing/${invalidThingId}/ingest/${ingest.name}`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -218,9 +209,9 @@ describe('ThingIngests', function () {
         ingestId: ingestId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request.get(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${invalidIngest}`)
+      context.response = await context.request.get(`/v1/thing/${thingId}/ingest/${invalidIngest}`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -233,9 +224,9 @@ describe('ThingIngests', function () {
         ingestId: ingestId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request.get(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${ingest.name}`)
+      context.response = await context.request.get(`/v1/thing/${thingId}/ingest/${ingest.name}`)
 
       expect(context.response.status).to.equal(200)
       expect(context.response.body.ingestId).to.equal(ingestId)
@@ -256,19 +247,19 @@ describe('ThingIngests', function () {
 
     beforeEach(async function () {
       const typeOne = { name: 'typeOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(typeOne)
+      await context.request.post(`/v1/thingType`).send(typeOne)
       ingestOne = { name: 'ingestOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingestOne)
+      await context.request.post(`/v1/ingest`).send(ingestOne)
       const typeTwo = { name: 'typeTwo' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(typeTwo)
+      await context.request.post(`/v1/thingType`).send(typeTwo)
       ingestTwo = { name: 'ingestTwo' }
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingestTwo)
+      await context.request.post(`/v1/ingest`).send(ingestTwo)
 
       const thing = {
         type: typeOne.name,
         metadata: {},
       }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thing`).send(thing)
+      const { body } = await context.request.post(`/v1/thing`).send(thing)
       thingId = body.id
 
       ingestOneId = 'ingestOneId'
@@ -286,11 +277,9 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request.put(
-        `/${API_MAJOR_VERSION}/thing/${invalidThingId}/ingest/${ingestOne.name}`
-      )
+      context.response = await context.request.put(`/v1/thing/${invalidThingId}/ingest/${ingestOne.name}`)
 
       expect(context.response.status).to.equal(400)
       expect(context.response.body).to.deep.equal({})
@@ -304,11 +293,9 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request.put(
-        `/${API_MAJOR_VERSION}/thing/${invalidThingId}/ingest/${ingestOne.name}`
-      )
+      context.response = await context.request.put(`/v1/thing/${invalidThingId}/ingest/${ingestOne.name}`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -322,9 +309,9 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request.put(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${invalidIngest}`)
+      context.response = await context.request.put(`/v1/thing/${thingId}/ingest/${invalidIngest}`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -338,11 +325,9 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngest)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngest)
 
-      context.response = await context.request
-        .put(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${invalidIngest}`)
-        .send(thingIngest)
+      context.response = await context.request.put(`/v1/thing/${thingId}/ingest/${invalidIngest}`).send(thingIngest)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -355,12 +340,12 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngestOne)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngestOne)
       // thing ingest two props...
       const type = { name: 'typeTwo' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
+      await context.request.post(`/v1/thingType`).send(type)
       ingestTwo = { name: 'ingestTwo' }
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingestTwo)
+      await context.request.post(`/v1/ingest`).send(ingestTwo)
       const ingestTwoId = 'ingestTwoId'
       thingIngestTwo = {
         thingId: thingId,
@@ -368,9 +353,7 @@ describe('ThingIngests', function () {
         ingestId: ingestTwoId,
         configuration: {},
       }
-      context.response = await context.request
-        .put(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${ingestOne.name}`)
-        .send(thingIngestTwo)
+      context.response = await context.request.put(`/v1/thing/${thingId}/ingest/${ingestOne.name}`).send(thingIngestTwo)
 
       expect(context.response.status).to.equal(200)
       expect(context.response.body.ingestId).to.equal(ingestTwoId)
@@ -383,9 +366,7 @@ describe('ThingIngests', function () {
         ingestId: '',
         configuration: {},
       }
-      context.response = await context.request
-        .put(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${ingestOne.name}`)
-        .send(thingIngestTwo)
+      context.response = await context.request.put(`/v1/thing/${thingId}/ingest/${ingestOne.name}`).send(thingIngestTwo)
 
       expect(context.response.status).to.equal(400)
       expect(context.response.body).to.deep.equal({})
@@ -398,13 +379,13 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngestOne)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngestOne)
 
       // thing ingest two props...
       const type = { name: 'typeTwo' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(type)
+      await context.request.post(`/v1/thingType`).send(type)
       const ingestTwo = { name: 'ingestTwo' }
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingestTwo)
+      await context.request.post(`/v1/ingest`).send(ingestTwo)
       // const ingestTwoId = 'ingestTwoId'
       const thingIngestTwo = {
         thingId: thingId,
@@ -412,9 +393,7 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      context.response = await context.request
-        .put(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${ingestOne.name}`)
-        .send(thingIngestTwo)
+      context.response = await context.request.put(`/v1/thing/${thingId}/ingest/${ingestOne.name}`).send(thingIngestTwo)
 
       expect(context.response.status).to.equal(409)
       expect(context.response.body).to.deep.equal({})
@@ -433,15 +412,15 @@ describe('ThingIngests', function () {
 
     beforeEach(async function () {
       const typeOne = { name: 'typeOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/thingType`).send(typeOne)
+      await context.request.post(`/v1/thingType`).send(typeOne)
       ingestOne = { name: 'ingestOne' }
-      await context.request.post(`/${API_MAJOR_VERSION}/ingest`).send(ingestOne)
+      await context.request.post(`/v1/ingest`).send(ingestOne)
 
       const thing = {
         type: typeOne.name,
         metadata: {},
       }
-      const { body } = await context.request.post(`/${API_MAJOR_VERSION}/thing`).send(thing)
+      const { body } = await context.request.post(`/v1/thing`).send(thing)
       thingId = body.id
 
       ingestOneId = 'ingestOneId'
@@ -453,11 +432,9 @@ describe('ThingIngests', function () {
 
     it('should return 400 (invalid uuid)', async function () {
       const invalidThingId = '000a0000-a00a-00a0-a000-00000000000'
-      await context.request.delete(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`)
+      await context.request.delete(`/v1/thing/${thingId}/ingest`)
 
-      context.response = await context.request.put(
-        `/${API_MAJOR_VERSION}/thing/${invalidThingId}/ingest/${ingestOne.name}`
-      )
+      context.response = await context.request.put(`/v1/thing/${invalidThingId}/ingest/${ingestOne.name}`)
 
       expect(context.response.status).to.equal(400)
       expect(context.response.body).to.deep.equal({})
@@ -466,9 +443,7 @@ describe('ThingIngests', function () {
     it('should return 404 (thing does not exist)', async function () {
       const invalidThingId = '000a0000-a00a-00a0-a000-000000000000'
 
-      context.response = await context.request.delete(
-        `/${API_MAJOR_VERSION}/thing/${invalidThingId}/ingest/${ingestOne.name}`
-      )
+      context.response = await context.request.delete(`/v1/thing/${invalidThingId}/ingest/${ingestOne.name}`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -477,7 +452,7 @@ describe('ThingIngests', function () {
     it('should return 404 (ingest does not exist)', async function () {
       const invalidIngest = 'ingestZero'
 
-      context.response = await context.request.delete(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${invalidIngest}`)
+      context.response = await context.request.delete(`/v1/thing/${thingId}/ingest/${invalidIngest}`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -486,7 +461,7 @@ describe('ThingIngests', function () {
     it('should return 404 (ingest does not exist)', async function () {
       const invalidIngest = 'ingestZero'
 
-      context.response = await context.request.delete(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${invalidIngest}`)
+      context.response = await context.request.delete(`/v1/thing/${thingId}/ingest/${invalidIngest}`)
 
       expect(context.response.status).to.equal(404)
       expect(context.response.body).to.deep.equal({})
@@ -499,9 +474,9 @@ describe('ThingIngests', function () {
         ingestId: ingestOneId,
         configuration: {},
       }
-      await context.request.post(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest`).send(thingIngestOne)
+      await context.request.post(`/v1/thing/${thingId}/ingest`).send(thingIngestOne)
 
-      context.response = await context.request.delete(`/${API_MAJOR_VERSION}/thing/${thingId}/ingest/${ingestOne.name}`)
+      context.response = await context.request.delete(`/v1/thing/${thingId}/ingest/${ingestOne.name}`)
 
       expect(context.response.status).to.equal(204)
       expect(context.response.body).to.deep.equal({})

@@ -1,5 +1,5 @@
-const validator = require('validator')
-const {
+import validator from 'validator'
+import {
   findThings,
   findThingById,
   addThing,
@@ -21,7 +21,7 @@ const {
   addIngest,
   findIngestByName,
   findIngests,
-} = require('../../db')
+} from '../../db.js'
 
 async function getThings({ type, ingest, ingestId }) {
   const result = await findThings({ type, ingest, ingestId })
@@ -294,7 +294,7 @@ async function deleteThingIngestByThingIdAndIngest({ thingId, ingest }) {
   return { statusCode: 204 }
 }
 
-module.exports = {
+export default {
   getThings,
   getThingById,
   postThing,
