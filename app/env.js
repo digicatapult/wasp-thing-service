@@ -19,7 +19,6 @@ const vars = envalid.cleanEnv(
     DB_NAME: envalid.str({ default: 'things' }),
     DB_USERNAME: envalid.str({ devDefault: 'postgres' }),
     DB_PASSWORD: envalid.str({ devDefault: 'postgres' }),
-    JWT_SECRET: envalid.str({ devDefault: 'ogA9ppB$S!dy!hu3Rauvg!L96' }),
     API_VERSION: envalid.str({ default: version }),
   },
   {

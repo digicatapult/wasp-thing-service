@@ -53,7 +53,6 @@ NODE_ENV=test npx knex seed:run
 |   DB_NAME   |    N     |         `wasp`         | PostgreSQL database name                                                             |
 | DB_USERNAME |    Y     |           -            | PostgreSQL database username                                                         |
 | DB_PASSWORD |    Y     |           -            | PostgreSQL database password                                                         |
-| JWT_SECRET  |    Y     |           -            | Secret for validating JSON web-tokens                                                |
 | API_VERSION |    N     | `package.json version` | Official API version                                                                 |
 
 ## Deploying WASP Thing Service on WASP-Cluster with Helm/Kubernetes
