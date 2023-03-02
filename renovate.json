@@ -9,22 +9,17 @@
   "updateLockFiles": true,
   "packageRules": [
     {
-      "matchPackagePatterns": ["*"],
       "matchManagers": ["npm"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "npm - all non-major dependencies",
       "automerge": true
     },
     {
-      "matchPackagePatterns": ["*"],
       "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
       "groupName": "github-actions - all dependencies"
     },
     {
-      "matchPackagePatterns": ["*"],
       "matchManagers": ["dockerfile", "docker-compose"],
-      "matchUpdateTypes": ["major", "minor", "patch"],
       "groupName": "docker - all dependencies"
     }
   ]
