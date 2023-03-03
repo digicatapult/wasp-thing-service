@@ -1,24 +1,4 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "enabledManagers": ["npm", "github-actions", "dockerfile", "docker-compose"],
-  "rangeStrategy": "bump",
-  "bumpVersion": "patch",
-  "packageRules": [
-    {
-      "matchManagers": ["npm"],
-      "updateLockFiles": true,
-      "groupName": "NPM - all minor and patch updates",
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "groupName": "GitHub Actions - all deps"
-    },
-    {
-      "matchManagers": ["dockerfile", "docker-compose"],
-      "groupName": "Docker - all deps"
-    }
-  ]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["github>digicatapult/renovate-config"]
 }
