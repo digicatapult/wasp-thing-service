@@ -1,6 +1,6 @@
 {
   "name": "@digicatapult/wasp-thing-service",
-  "version": "0.1.43",
+  "version": "0.1.44",
   "description": "Thing Service for WASP",
   "main": "app/index.js",
   "scripts": {
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.9",
     "@babel/plugin-syntax-import-assertions": "^7.22.5",
-    "c8": "^7.14.0",
+    "c8": "^8.0.1",
     "chai": "^4.3.7",
     "depcheck": "^1.4.3",
     "eslint": "^8.46.0",
