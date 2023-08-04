@@ -1,6 +1,6 @@
 {
   "name": "@digicatapult/wasp-thing-service",
-  "version": "0.1.46",
+  "version": "0.1.47",
   "description": "Thing Service for WASP",
   "main": "app/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "express": "^4.18.2",
     "express-openapi": "^12.1.3",
     "knex": "^2.5.1",
-    "pg": "^8.11.1",
+    "pg": "^8.11.2",
     "pino": "^8.14.2",
     "pino-http": "^8.3.3",
     "swagger-ui-express": "^5.0.0",
