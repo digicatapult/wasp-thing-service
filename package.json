@@ -1,6 +1,6 @@
 {
   "name": "@digicatapult/wasp-thing-service",
-  "version": "0.1.58",
+  "version": "0.1.59",
   "description": "Thing Service for WASP",
   "main": "app/index.js",
   "scripts": {
@@ -38,12 +38,12 @@
     "knex": "^2.5.1",
     "pg": "^8.11.3",
     "pino": "^8.15.0",
-    "pino-http": "^8.4.0",
+    "pino-http": "^8.5.0",
     "swagger-ui-express": "^5.0.0",
     "validator": "^13.11.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.11",
+    "@babel/eslint-parser": "^7.22.15",
     "@babel/plugin-syntax-import-assertions": "^7.22.5",
     "c8": "^8.0.1",
     "chai": "^4.3.8",
