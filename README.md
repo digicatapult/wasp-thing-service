@@ -1,5 +1,9 @@
 # wasp-thing-service
 
+## Deprecation Notice
+`WASP` was deprecated on March 14th 2024, there will be no further dependency or security updates to this platform.
+---
+
 Thing Service for WASP Project
 
 ## Getting started
